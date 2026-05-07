@@ -656,8 +656,7 @@ async function syncData() {
         refreshDashboard();
         renderHistory();
         renderRapports();
-        refreshAll();
-        if(typeof renderProducts === 'function')
+      
           renderProducts();
         setSyncStatus('synced');
         showToast('📥 Données récupérées depuis le cloud');
