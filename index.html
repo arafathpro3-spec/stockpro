@@ -1245,6 +1245,13 @@ if (db.firebase === null && localStorage.getItem(STORAGE_KEY)) {
 
 refreshAll();
 setSyncStatus(db.firebase ? 'synced' : 'no-cloud');
+  
+  function refreshAll() {
+    renderProducts();      // Met à jour l'onglet Stock
+    renderHistory();       // Met à jour l'onglet Historique
+    refreshDashboard();    // Met à jour le Tableau de Bord (calculs des ventes)
+    renderRapports();      // Met à jour l'onglet Rapports
+}
 </script>
 </body>
 </html>
