@@ -653,7 +653,12 @@ async function syncData() {
         db.produits = data.produits;
         db.ventes = data.ventes || [];
         saveLocal();
+        refreshDashboard();
+        renderHistory();
+        renderRapports();
         refreshAll();
+        if(typeof renderProducts === 'function')
+          renderProducts();
         setSyncStatus('synced');
         showToast('📥 Données récupérées depuis le cloud');
       } else {
