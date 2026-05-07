@@ -645,17 +645,7 @@ async function syncData() {
   }
   setSyncStatus('syncing');
   const base = `${db.firebase.url}/stockpro/${db.firebase.shop}`;
-  try {
-    // Push local to cloud
-    await fetch(`${base}.json`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ produits: db.produits, ventes: db.ventes, lastSync: Date.now() })
-    });
-    setSyncStatus('synced');
-    showToast('✅ Données sauvegardées dans le cloud');
-  } catch(e) {
-    // Try to pull from cloud
+     // Try to pull from cloud
     try {
       const res = await fetch(`${base}.json`);
       const data = await res.json();
@@ -667,8 +657,14 @@ async function syncData() {
         setSyncStatus('synced');
         showToast('📥 Données récupérées depuis le cloud');
       } else {
-        setSyncStatus('error');
-      }
+    // Push local to cloud
+    await fetch(`${base}.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ produits: db.produits, ventes: db.ventes, lastSync: Date.now() })
+    });
+    setSyncStatus('synced');
+    showToast('✅ Données sauvegardées dans le cloud');
     } catch(e2) {
       setSyncStatus('error');
       showToast('❌ Erreur de connexion');
