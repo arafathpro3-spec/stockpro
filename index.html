@@ -665,12 +665,13 @@ async function syncData() {
     });
     setSyncStatus('synced');
     showToast('✅ Données sauvegardées dans le cloud');
-    } catch(e2) {
+    }
+      } catch(e2) {
       setSyncStatus('error');
       showToast('❌ Erreur de connexion');
     }
   }
-}
+
 
 async function pullFromCloud() {
   if (!db.firebase) return;
